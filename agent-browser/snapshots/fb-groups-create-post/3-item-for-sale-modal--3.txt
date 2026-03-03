@@ -1,0 +1,74 @@
+- document:
+  - banner:
+    - link "Facebook" [ref=e1]:
+      - /url: /
+      - img
+    - img
+    - combobox "Search Facebook" [ref=e2]
+    - navigation "Facebook" [ref=e3]:
+      - list:
+        - listitem:
+          - link "Home" [ref=e4]:
+            - /url: /
+            - img
+        - listitem:
+          - link "Marketplace" [ref=e5]:
+            - /url: /marketplace/?ref=app_tab
+            - img
+        - listitem:
+          - link "Groups" [ref=e6]:
+            - /url: /groups/
+            - img
+        - listitem:
+          - link "Gaming" [ref=e7]:
+            - /url: /gaming/play/?store_visit_source=gaming_tab
+            - img
+    - navigation "Account Controls and Settings" [ref=e8]:
+      - button "Menu" [ref=e9]
+      - button "Messenger, 3 unread" [ref=e10]
+      - button "Notifications, 1 unread" [ref=e11]
+      - button "Your profile" [ref=e12]:
+        - img "Your profile"
+  - dialog "Create new listing":
+    - heading "Item for sale" [ref=e13] [level=2]
+    - button "Back" [ref=e14]
+    - button "Close" [ref=e15]
+    - text: Photos 0 / 42 - You can add up to 42 photos.
+    - button "Add photos or drag and drop" [ref=e16]
+    - text: Upload photos directly from your phone.
+    - button "Learn more about uploading photos from your phone" [ref=e17]: Learn more
+    - button "Try it" [ref=e18]
+    - heading "Required" [ref=e19] [level=2]
+    - text: Be as descriptive as possible. Title
+    - textbox "Title" [ref=e20]: Tst
+    - text: Price
+    - textbox "Price" [ref=e21]: € 1
+    - combobox "Condition" [ref=e22]: Condition New
+    - button "More details Attract more interest by including more details." [ref=e23] [expanded]
+    - text: Description
+    - textbox "Description" [ref=e24]: item description
+    - text: Product tags
+    - list
+    - textbox "Product tags" [ref=e25]
+    - text: Optional. Limit:20 Location
+    - combobox "Location" [ref=e26]: Ljubljana, Slovenia
+    - img "Input Location is valid."
+    - heading "Meetup preferences" [ref=e27] [level=2]
+    - text: Buyers will be able to see your preferences on your listing.
+    - link "Learn more about meetup preferences" [ref=e28]:
+      - /url: https://www.facebook.com/help/329122794534612
+      - text: Learn more
+    - checkbox "Public meetup Meet at a public location. See Safety Tips" [ref=e29]:
+      - text: Public meetup Meet at a public location.
+      - link "See Safety Tips" [ref=e30]:
+        - /url: https://www.facebook.com/help/1156544111079919
+    - checkbox "Door pickup Buyer picks up at your door." [ref=e31]
+    - checkbox "Door dropoff You drop off at buyer's door." [ref=e32]
+    - separator
+    - text: To help people buy and sell with confidence, businesses can now identify products that are potentially fake or infringe on their intellectual property.
+    - link "Learn more about intellectual property protection" [ref=e33]:
+      - /url: https://www.facebook.com/help/809497125833105/
+      - text: Learn more
+    - button "Next" [ref=e34] [disabled]
+  - button "New message" [ref=e35]
+  - alert: Input Location is valid.

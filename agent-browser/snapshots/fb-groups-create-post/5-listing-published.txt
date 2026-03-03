@@ -1,0 +1,43 @@
+- document:
+  - banner:
+    - link "Facebook" [ref=e1]:
+      - /url: /
+      - img
+    - img
+    - combobox "Search Facebook" [ref=e2]
+    - navigation "Facebook" [ref=e3]:
+      - list:
+        - listitem:
+          - link "Home" [ref=e4]:
+            - /url: /
+            - img
+        - listitem:
+          - link "Marketplace" [ref=e5]:
+            - /url: /marketplace/?ref=app_tab
+            - img
+        - listitem:
+          - link "Groups" [ref=e6]:
+            - /url: /groups/
+            - img
+        - listitem:
+          - link "Gaming" [ref=e7]:
+            - /url: /gaming/play/?store_visit_source=gaming_tab
+            - img
+    - navigation "Account Controls and Settings" [ref=e8]:
+      - button "Menu" [ref=e9]
+      - button "Messenger, 3 unread" [ref=e10]
+      - button "Notifications, 2 unread" [ref=e11]
+      - button "Your profile" [ref=e12]:
+        - img "Your profile"
+  - dialog "Listing published":
+    - heading "Listing published" [ref=e13] [level=2]
+    - button "Close" [ref=e14]
+    - separator
+    - text: Reach more buyers Crosspost on Marketplace Marketplace Marketplace items are public and can be seen by anyone on or off Facebook.
+    - button "List" [ref=e15]
+    - text: Crosspost your other listings Your listing will be available to buyers on Marketplace Preprost izračun ter primerjava cen velikega ter malega servisa €1 Listed in AVTO OGLASNIK
+    - button "List" [ref=e16] [nth=1]
+    - text: Preprost izračun ter primerjava cen velikega ter malega servisa €1 Listed in Avto oglasi - avtodeli, prodam - kupim
+    - button "List" [ref=e17] [nth=2]
+  - button "New message" [ref=e18]
+  - alert: Input Location is valid.

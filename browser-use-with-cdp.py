@@ -39,6 +39,16 @@ class PlaywrightMouseClickAction(BaseModel):
     )
 
 
+class PlaywrightCoordinateClickAction(BaseModel):
+    """Parameters for clicking at specific coordinates."""
+
+    x: int = Field(..., description="X coordinate to click")
+    y: int = Field(..., description="Y coordinate to click")
+    description: str = Field(
+        ..., description="Description of the element being clicked"
+    )
+
+
 async def start_chrome_with_debug_port(port: int = 9222):
     """Starts Chrome with remote debugging enabled."""
     user_data_dir = tempfile.mkdtemp(prefix="chrome_cdp_")
@@ -162,6 +172,32 @@ tools = Tools()
 
 
 @tools.registry.action(
+    "Click at specific (x, y) coordinates using Playwright's mouse API. Useful when visual analysis identifies a target location.",
+    param_model=PlaywrightCoordinateClickAction,
+)
+async def playwright_click_coordinates(
+    params: PlaywrightCoordinateClickAction, browser_session: BrowserSession
+):
+    print(
+        f"🖱️ Custom Action: Attempting coordinate click at ({params.x}, {params.y}) - {params.description}..."
+    )
+    try:
+        if not playwright_page:
+            return ActionResult(error="Playwright not connected.")
+
+        # Perform the click at coordinates
+        await playwright_page.mouse.click(params.x, params.y)
+        print(f"✅ Successfully clicked coordinates ({params.x}, {params.y})")
+
+        return ActionResult(
+            extracted_content=f"Successfully clicked coordinates ({params.x}, {params.y}) for: {params.description}",
+            include_in_memory=True,
+        )
+    except Exception as e:
+        return ActionResult(error=f"Playwright coordinate click failed: {str(e)}")
+
+
+@tools.registry.action(
     "Click a button using Playwright's standard click() method.",
     param_model=PlaywrightClickAction,
 )
@@ -243,10 +279,6 @@ async def playwright_mouse_click(
 async def main():
     print('🚀 FB Marketplace "Sell something" Interaction Script')
 
-    # Target selector from user request
-    TARGET_SELECTOR = "#mount_0_0_ag > div > div:nth-child(1) > div > div.x9f619.x1n2onr6.x1ja2u2z > div > div > div.x78zum5.xdt5ytf.x1t2pt76.x1n2onr6.x1ja2u2z.x10cihs4 > div.x78zum5.xdt5ytf.x1t2pt76.x1n2onr6 > div.x78zum5.xdt5ytf.x1iyjqo2 > div > div > div.html-div.xdj266r.x14z9mp.xat24cr.x1lziwak.xyri2b.x1c1uobl.x6s0dn4.x78zum5.xdt5ytf.xwib8y2.xh8yej3.xz9dl7a > div > div > div > div:nth-child(1) > div > div > div > div > div > div"
-
-    chrome_process = None
     try:
         chrome_process = await start_chrome_with_debug_port()
         cdp_url = "http://localhost:9222"
@@ -256,11 +288,12 @@ async def main():
 
         print("🤖 Initializing AI Agent...")
         agent = Agent(
-            task=f"""
+            task="""
             1. Navigate to https://www.facebook.com/groups/autooglasinis
-            2. Use 'playwright_click_button' with selector '{TARGET_SELECTOR}' to click the 'Sell something' button.
-            3. If that fails or as a demonstration, use 'playwright_mouse_click' with the same selector.
-            4. Confirm if the 'Create new listing' dialog or similar appeared.
+            2. Visually identify the 'Sell something' button in the screenshot.
+            3. Use the 'playwright_click_coordinates' tool to click the center of that button using its (x, y) coordinates.
+            4. If visual identification is difficult, fall back to 'playwright_click_button' with selector 'text="Sell Something"'.
+            5. Confirm if the 'Create new listing' dialog or similar appeared.
             """,
             llm=ChatBrowserUse(),
             tools=tools,
@@ -270,7 +303,6 @@ async def main():
         print("🎯 Starting agent...")
         result = await agent.run()
         print(f"✅ Result: {result}")
-
     except Exception as e:
         print(f"❌ Error: {e}")
     finally:

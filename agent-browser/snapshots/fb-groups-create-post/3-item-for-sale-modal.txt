@@ -1,0 +1,54 @@
+- document:
+  - banner:
+    - link "Facebook" [ref=e1]:
+      - /url: /
+      - img
+    - img
+    - combobox "Search Facebook" [ref=e2]
+    - navigation "Facebook" [ref=e3]:
+      - list:
+        - listitem:
+          - link "Home" [ref=e4]:
+            - /url: /
+            - img
+        - listitem:
+          - link "Marketplace" [ref=e5]:
+            - /url: /marketplace/?ref=app_tab
+            - img
+        - listitem:
+          - link "Groups" [ref=e6]:
+            - /url: /groups/
+            - img
+        - listitem:
+          - link "Gaming" [ref=e7]:
+            - /url: /gaming/play/?store_visit_source=gaming_tab
+            - img
+    - navigation "Account Controls and Settings" [ref=e8]:
+      - button "Menu" [ref=e9]
+      - button "Messenger, 3 unread" [ref=e10]
+      - button "Notifications, 1 unread" [ref=e11]
+      - button "Your profile" [ref=e12]:
+        - img "Your profile"
+  - dialog "Create new listing":
+    - heading "Item for sale" [ref=e13] [level=2]
+    - button "Back" [ref=e14]
+    - button "Close" [ref=e15]
+    - text: Photos 0 / 42 - You can add up to 42 photos.
+    - button "Add photos or drag and drop" [ref=e16]
+    - text: Upload photos directly from your phone.
+    - button "Learn more about uploading photos from your phone" [ref=e17]: Learn more
+    - button "Try it" [ref=e18]
+    - heading "Required" [ref=e19] [level=2]
+    - text: Be as descriptive as possible. Title
+    - textbox "Title" [ref=e20]
+    - text: Price
+    - textbox "Price" [ref=e21]
+    - combobox "Condition" [ref=e22]
+    - button "More details Attract more interest by including more details." [ref=e23]
+    - separator
+    - text: To help people buy and sell with confidence, businesses can now identify products that are potentially fake or infringe on their intellectual property.
+    - link "Learn more about intellectual property protection" [ref=e24]:
+      - /url: https://www.facebook.com/help/809497125833105/
+      - text: Learn more
+    - button "Next" [ref=e25] [disabled]
+  - button "New message" [ref=e26]

@@ -1,0 +1,192 @@
+- document:
+  - banner:
+    - link "Facebook" [ref=e1]:
+      - /url: /
+      - img
+    - img
+    - combobox "Search Facebook" [ref=e2]
+    - navigation "Facebook" [ref=e3]:
+      - list:
+        - listitem:
+          - link "Home" [ref=e4]:
+            - /url: /
+            - img
+        - listitem:
+          - link "Marketplace" [ref=e5]:
+            - /url: /marketplace/?ref=app_tab
+            - img
+        - listitem:
+          - link "Groups" [ref=e6]:
+            - /url: /groups/
+            - img
+        - listitem:
+          - link "Gaming" [ref=e7]:
+            - /url: /gaming/play/?store_visit_source=gaming_tab
+            - img
+    - navigation "Account Controls and Settings" [ref=e8]:
+      - button "Menu" [ref=e9]
+      - button "Messenger, 3 unread" [ref=e10]
+      - button "Notifications, 1 unread" [ref=e11]
+      - button "Your profile" [ref=e12]:
+        - img "Your profile"
+  - main:
+    - link "Cover photo" [ref=e13]:
+      - /url: https://www.facebook.com/photo/?fbid=10157216963974008&set=p.10157216963974008
+    - text: Group by
+    - link "Aleksandar Mitic" [ref=e14]:
+      - /url: https://www.facebook.com/aki987
+    - heading "AUTO OGLASI" [ref=e15] [level=1]:
+      - link "AUTO OGLASI" [ref=e16]:
+        - /url: https://www.facebook.com/groups/autooglasinis/
+    - text: Public group
+    - link "197.3K members" [ref=e17]:
+      - /url: /groups/2062836393973359/members/
+    - list:
+      - listitem:
+        - link "Драган Турановић" [ref=e18]:
+          - /url: /groups/2062836393973359/user/100095776743036/
+          - img "Драган Турановић"
+      - listitem:
+        - link "Ema Priv" [ref=e19]:
+          - /url: /groups/2062836393973359/user/100095572901956/
+          - img "Ema Priv"
+      - listitem:
+        - link "Natalija Memetovic" [ref=e20]:
+          - /url: /groups/2062836393973359/user/100095425152196/
+          - img "Natalija Memetovic"
+      - listitem:
+        - link "Mihajlo Velickovic" [ref=e21]:
+          - /url: /groups/2062836393973359/user/100095395118176/
+          - img "Mihajlo Velickovic"
+      - listitem:
+        - link "Igo Bau" [ref=e22]:
+          - /url: /groups/2062836393973359/user/100095380967960/
+          - img "Igo Bau"
+      - listitem:
+        - link "Marijan Minic" [ref=e23]:
+          - /url: /groups/2062836393973359/user/100095326475274/
+          - img "Marijan Minic"
+      - listitem:
+        - link "Dragana Andrejić" [ref=e24]:
+          - /url: /groups/2062836393973359/user/100095302962549/
+          - img "Dragana Andrejić"
+      - listitem:
+        - link "Ante Tiardovic" [ref=e25]:
+          - /url: /groups/2062836393973359/user/100095302129530/
+          - img "Ante Tiardovic"
+      - listitem:
+        - link "Mile Srbinoski" [ref=e26]:
+          - /url: /groups/2062836393973359/user/100095268926735/
+          - img "Mile Srbinoski"
+      - listitem:
+        - link "Sara Miljkovic" [ref=e27]:
+          - /url: /groups/2062836393973359/user/100095259257907/
+          - img "Sara Miljkovic"
+      - listitem:
+        - link "Bogdan Petrovic" [ref=e28]:
+          - /url: /groups/2062836393973359/user/100095233822101/
+          - img "Bogdan Petrovic"
+      - listitem:
+        - link "Arsa Nedja" [ref=e29]:
+          - /url: /groups/2062836393973359/user/100095221223916/
+          - img "Arsa Nedja"
+      - listitem:
+        - link "Milos Vujic" [ref=e30]:
+          - /url: /groups/2062836393973359/user/100095161450102/
+          - img "Milos Vujic"
+      - listitem:
+        - link "Kmet Živković" [ref=e31]:
+          - /url: /groups/2062836393973359/user/100095157433133/
+          - img "Kmet Živković"
+      - listitem:
+        - link "Goran Ikonic" [ref=e32]:
+          - /url: /groups/2062836393973359/user/100095151888616/
+          - img "Goran Ikonic"
+      - listitem:
+        - link "Jasmina Stanisin" [ref=e33]:
+          - /url: /groups/2062836393973359/user/100095144298084/
+          - img "Jasmina Stanisin"
+      - listitem:
+        - link "Ana Ristic" [ref=e34]:
+          - /url: /groups/2062836393973359/user/100095141348468/
+          - img "Ana Ristic"
+      - listitem:
+        - link "Miloš Ilić" [ref=e35]:
+          - /url: /groups/2062836393973359/user/100095128222877/
+          - img "Miloš Ilić"
+      - listitem:
+        - link "Knezevic Nino" [ref=e36]:
+          - /url: /groups/2062836393973359/user/100095017099460/
+          - img "Knezevic Nino"
+      - listitem:
+        - link "Milan Kojic" [ref=e37]:
+          - /url: /groups/2062836393973359/user/100094981280187/
+          - img "Milan Kojic"
+      - listitem:
+        - link "See everyone" [ref=e38]:
+          - /url: /groups/autooglasinis/members/
+    - button "Invite" [ref=e39]
+    - button "Share group" [ref=e40]: Share
+    - button "Joined" [ref=e41]
+    - button "See recommended groups" [ref=e42]
+    - tablist:
+      - tab "About" [ref=e43]
+      - tab "Buy and Sell" [ref=e44] [selected]
+      - tab "Featured" [ref=e45]
+      - tab "People" [ref=e46]
+      - tab "Media" [ref=e47]
+      - tab "Events" [ref=e48]
+      - tab "Files" [ref=e49]
+    - button "Search within this group" [ref=e50]
+    - button "More" [ref=e51]
+    - link "Boštjan Kamnik's Timeline" [ref=e52]:
+      - /url: https://www.facebook.com/bostjan.kamnik.7
+    - button "Sell Something" [ref=e53]
+    - text: Featured 1 new Featured content badge
+    - button "About featured section" [ref=e54]
+    - button "Expand/Collapse featured section" [ref=e55]
+    - feed:
+      - button "sort group feed by Top listings" [ref=e56]:
+        - text: sort group feed by
+        - heading "Top listings" [ref=e57] [level=2]
+        - img
+      - heading "Ermina Jasic" [ref=e58] [level=2]:
+        - link "Ermina Jasic" [ref=e59]:
+          - /url: /groups/2062836393973359/user/61581197166133/?__cft__[0]=AZb0oSxbP2rAw-efPohaOkZwjMN57CCnFYFEaUPdJu5maRRiYxIBk2RZ1lmjLbE1A0Y_wTyvt-iINLBkngEABFtD9IRxZzH-sU99S7xaV9Tg4Z8Xgi8AzD04TeZVfK1oU3OK9wLJ59BFlSpGBu7ybxK00z2rW0SfeNL8xcvxRiehcSEfc5blRXy3LO9U6FToEbu0J8oPYqo2kkRgn8lzbFCq&__tn__=-UC%2CP-R
+      - link "29 minutes ago" [ref=e60]:
+        - /url: "?__cft__[0]=AZb0oSxbP2rAw-efPohaOkZwjMN57CCnFYFEaUPdJu5maRRiYxIBk2RZ1lmjLbE1A0Y_wTyvt-iINLBkngEABFtD9IRxZzH-sU99S7xaV9Tg4Z8Xgi8AzD04TeZVfK1oU3OK9wLJ59BFlSpGBu7ybxK00z2rW0SfeNL8xcvxRiehcSEfc5blRXy3LO9U6FToEbu0J8oPYqo2kkRgn8lzbFCq&__tn__=%2CO%2CP-R#?gfa"
+        - text: d o p s o S t n r e m 3 t 1 6 g h 6 l l 2 7 6 f 9 i 2 9 l 2 8 f 9 9 a 6 t 0 1 t 2 5 a 6 8 g a h h 1 l 1 c 5 u l f 8 7 h
+      - img "Shared with Public group"
+      - button "Actions for this post" [ref=e61]:
+        - img
+      - blockquote:
+        - text: I give away for a boy up to 8 years old to 7 goods so who needs it let me know there are shoes well preserved
+        - button "Translation Preferences" [ref=e62]
+        - button "See original" [ref=e63]
+        - button "Rate this translation" [ref=e64]
+      - link "BAM1,111 Cazin, BIH Za djecaka do 7 do 8 godina Message" [ref=e65]:
+        - /url: /commerce/listing/1284753926885455/?ref=share_attachment&__cft__[0]=AZb0oSxbP2rAw-efPohaOkZwjMN57CCnFYFEaUPdJu5maRRiYxIBk2RZ1lmjLbE1A0Y_wTyvt-iINLBkngEABFtD9IRxZzH-sU99S7xaV9Tg4Z8Xgi8AzD04TeZVfK1oU3OK9wLJ59BFlSpGBu7ybxK00z2rW0SfeNL8xcvxRiehcSEfc5blRXy3LO9U6FToEbu0J8oPYqo2kkRgn8lzbFCq&__tn__=*WH-R
+        - text: BAM1,111 Cazin, BIH Za djecaka do 7 do 8 godina
+        - button "Message" [ref=e66]
+      - button "Like" [ref=e67]
+      - button "React" [ref=e68]
+      - button "Leave a comment" [ref=e69]: Comment
+      - button "Send this to friends or post it on your profile." [ref=e70]: Share
+      - textbox "Comment as Boštjan" [ref=e71]:
+        - paragraph
+      - list:
+        - listitem:
+          - button "Comment with an avatar sticker" [ref=e72]
+        - listitem:
+          - button "Insert an emoji" [ref=e73]
+        - listitem:
+          - button "Attach a photo or video" [ref=e74]
+        - listitem:
+          - button "Comment with a GIF" [ref=e75]
+        - listitem:
+          - button "Comment with a Sticker" [ref=e76]
+      - article:
+        - status "Loading..."
+      - article:
+        - status "Loading..."
+  - button "New message" [ref=e77]

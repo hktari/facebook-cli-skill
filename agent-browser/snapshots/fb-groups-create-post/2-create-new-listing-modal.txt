@@ -1,0 +1,40 @@
+- document:
+  - banner:
+    - link "Facebook" [ref=e1]:
+      - /url: /
+      - img
+    - img
+    - combobox "Search Facebook" [ref=e2]
+    - navigation "Facebook" [ref=e3]:
+      - list:
+        - listitem:
+          - link "Home" [ref=e4]:
+            - /url: /
+            - img
+        - listitem:
+          - link "Marketplace" [ref=e5]:
+            - /url: /marketplace/?ref=app_tab
+            - img
+        - listitem:
+          - link "Groups" [ref=e6]:
+            - /url: /groups/
+            - img
+        - listitem:
+          - link "Gaming" [ref=e7]:
+            - /url: /gaming/play/?store_visit_source=gaming_tab
+            - img
+    - navigation "Account Controls and Settings" [ref=e8]:
+      - button "Menu" [ref=e9]
+      - button "Messenger, 3 unread" [ref=e10]
+      - button "Notifications, 1 unread" [ref=e11]
+      - button "Your profile" [ref=e12]:
+        - img "Your profile"
+  - dialog "Create new listing":
+    - heading "Create new listing" [ref=e13] [level=2]
+    - button "Close" [ref=e14]
+    - text: Choose listing type
+    - button "Item for sale Create a single listing for one or more items to sell." [ref=e15]
+    - button "Vehicle for sale Sell a car, truck or other type of vehicle." [ref=e16]
+    - button "Home for sale or rent List a house or apartment for sale or rent." [ref=e17]
+    - button "Sale event Garage sales, estate sales, moving sales, swap meets and more." [ref=e18]
+  - button "New message" [ref=e19]
