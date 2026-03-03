@@ -27,9 +27,10 @@ sleep 5
 agent-browser --cdp ${cdp_port} type $(agent-browser --cdp ${cdp_port} snapshot | grep 'textbox "Title"' | grep -oP '\[ref=\K[^\]]+') "${post_title}"
 agent-browser --cdp ${cdp_port} click $(agent-browser --cdp ${cdp_port} snapshot | grep 'combobox "Condition"' | grep -oP '\[ref=\K[^\]]+')
 agent-browser --cdp ${cdp_port} click $(agent-browser --cdp ${cdp_port} snapshot | grep 'option "New"' | grep -oP '\[ref=\K[^\]]+')
+agent-browser --cdp ${cdp_port} type $(agent-browser --cdp ${cdp_port} snapshot | grep 'textbox "Price"' | grep -oP '\[ref=\K[^\]]+') 1
 agent-browser --cdp ${cdp_port} click $(agent-browser --cdp ${cdp_port} snapshot | grep 'button "More details' | grep -oP '\[ref=\K[^\]]+')
 agent-browser --cdp ${cdp_port} type $(agent-browser --cdp ${cdp_port} snapshot | grep 'textbox "Description"' | grep -oP '\[ref=\K[^\]]+') "${post_description}"
-agent-browser --cdp ${cdp_port} fill $(agent-browser --cdp ${cdp_port} snapshot | grep 'combobox "Location"' | grep -oP '\[ref=\K[^\]]+') "${city}"
+agent-browser --cdp ${cdp_port} type $(agent-browser --cdp ${cdp_port} snapshot | grep 'combobox "Location"' | grep -oP '\[ref=\K[^\]]+') "${city}"
 sleep 2 # Wait for dropdown
 agent-browser --cdp ${cdp_port} click $(agent-browser --cdp ${cdp_port} snapshot | grep "option \"${city}" | grep "\[nth=1\]" | grep -oP '\[ref=\K[^\]]+')
 agent-browser --cdp ${cdp_port} upload 'input[type="file"][accept="image/*,image/heif,image/heic"]' "${marketing_image_abs_path}"
@@ -41,7 +42,7 @@ sleep 5
 # 4. share to more places dialog
 agent-browser --cdp ${cdp_port} click $(agent-browser --cdp ${cdp_port} snapshot | grep 'button "Post"' | grep -oP '\[ref=\K[^\]]+')
 
-sleep 5
+sleep 10
 
 # 5. listing published dialog
 agent-browser --cdp ${cdp_port} get text $(agent-browser --cdp ${cdp_port} snapshot | grep 'heading "Listing published"' | grep -oP '\[ref=\K[^\]]+')
