@@ -26,7 +26,7 @@
     - navigation "Account Controls and Settings" [ref=e8]:
       - button "Menu" [ref=e9]
       - button "Messenger, 3 unread" [ref=e10]
-      - button "Notifications, 1 unread" [ref=e11]
+      - button "Notifications, 3 unread" [ref=e11]
       - button "Your profile" [ref=e12]:
         - img "Your profile"
   - dialog "Create new listing":

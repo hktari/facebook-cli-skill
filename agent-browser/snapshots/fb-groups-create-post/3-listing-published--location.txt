@@ -26,7 +26,7 @@
     - navigation "Account Controls and Settings" [ref=e8]:
       - button "Menu" [ref=e9]
       - button "Messenger, 3 unread" [ref=e10]
-      - button "Notifications, 1 unread" [ref=e11]
+      - button "Notifications, 3 unread" [ref=e11]
       - button "Your profile" [ref=e12]:
         - img "Your profile"
   - dialog "Create new listing":
@@ -40,19 +40,18 @@
     - button "Try it" [ref=e18]
     - heading "Required" [ref=e19] [level=2]
     - text: Be as descriptive as possible. Title
-    - textbox "Title" [ref=e20]: Tst
+    - textbox "Title" [ref=e20]
     - text: Price
-    - textbox "Price" [ref=e21]: € 1
-    - combobox "Condition" [ref=e22]: Condition New
+    - textbox "Price" [ref=e21]
+    - combobox "Condition" [ref=e22]
     - button "More details Attract more interest by including more details." [ref=e23] [expanded]
     - text: Description
-    - textbox "Description" [ref=e24]: item description
+    - textbox "Description" [ref=e24]
     - text: Product tags
     - list
     - textbox "Product tags" [ref=e25]
     - text: Optional. Limit:20 Location
-    - combobox "Location" [ref=e26]: Ljubljana, Slovenia
-    - img "Input Location is valid."
+    - combobox "Location" [ref=e26] [expanded]: Maribor
     - heading "Meetup preferences" [ref=e27] [level=2]
     - text: Buyers will be able to see your preferences on your listing.
     - link "Learn more about meetup preferences" [ref=e28]:
@@ -70,5 +69,13 @@
       - /url: https://www.facebook.com/help/809497125833105/
       - text: Learn more
     - button "Next" [ref=e34] [disabled]
-  - button "New message" [ref=e35]
-  - alert: Input Location is valid.
+  - listbox "4 suggested searches" [ref=e35]:
+    - option "Maribor, Slovenia City" [ref=e36]:
+      - option "Maribor, Slovenia City" [ref=e37] [nth=1]
+    - option "Gaj nad Mariborom, Slovenia Gaj nad Mariborom, Slovenia · 1,938 people checked in here" [ref=e38]:
+      - option "Gaj nad Mariborom, Slovenia Gaj nad Mariborom, Slovenia · 1,938 people checked in here" [ref=e39] [nth=1]
+    - option "Slivnica pri Mariboru, Slovenia Slivnica pri Mariboru, Slovenia · 2,062 people checked in here" [ref=e40]:
+      - option "Slivnica pri Mariboru, Slovenia Slivnica pri Mariboru, Slovenia · 2,062 people checked in here" [ref=e41] [nth=1]
+    - option "Pesnica Pri Mariboru, Brezovica, Slovenia City" [ref=e42]:
+      - option "Pesnica Pri Mariboru, Brezovica, Slovenia City" [ref=e43] [nth=1]
+  - button "New message" [ref=e44]

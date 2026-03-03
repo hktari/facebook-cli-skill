@@ -1,60 +1,48 @@
-# Instructions on how to create a sales post inside a facebook group using `agent-browser`  
+# Instructions on using `agent-browser` to perform common workflows
 
- uv run fb_marketplace_click.py
- agent-browser --cdp 9222 snapshot
- la
- mkdir agent-browser
- cd agent-browser
- agent-browser --cdp 9222 snapshot
- agent-browser --cdp 9222 snapshot > fb-group-snapshot.txt
- vim fb-group-snapshot.txt
- agent-browser --help | grep completion
+## Setup browser session
+1. run "uv run export-auth.py" to get facebook cookies
+2. run "uv run start-chrome-with-user-profile.py" to start a chrome browser with CDP debug port, and set cookies
+3. run "agent-browser connect 9222". Should print "done". Browser with user's cookies is ready for workflow executions.
+
+## Best practices
+*TODO*:review this 
+1. make sure to cleanup and kill chrome process
+
+## Workflows
+**IMPORTANT**: make sure you've setup the browser session before executing workflows
+
+### create a sales post inside a facebook group
+#### About
+certain facebook groups allow make sales posts only. This requires special handling when making posts. 
+
+#### Step by step instructions
+```bash
+ # 1. First page
  agent-browser click e53
- agent-browser --cdp 9222 snapshot > fb-group_create-new-listing.txt
- mkdir snapshots
- mkdir snapshots/fb-groups-create-post
- mv fb-group-snapshot.txt snapshots/fb-groups-create-post/first-page.txt
- mv fb-group_create-new-listing.txt snapshots/fb-groups-create-post/2-create-new-listing-modal.txt
- mv snapshots/fb-groups-create-post/first-page.txt snapshots/fb-groups-create-post/1-first-page.txt
- la
- pwd
- la snapshots
- vim snapshots/fb-groups-create-post/2-create-new-listing-modal.txt
+ 
+ # 2. Create new listing modal
  agent-browser click e15
- agent-browser --cdp 9222 snapshot > snapshots/fb-groups-create-post/3-item-for-sale-modal.txt
- vim snapshots/fb-groups-create-post/3-item-for-sale-modal.txt
- agent-browser --cdp 9222 type e20 "Tst"
- agent-browser --cdp 9222 select e22 "New"
- * agent-browser --cdp 9222 snapshot > snapshots/fb-groups-create-post/3-item-for-sale-modal--2.txt
- * vim snapshots/fb-groups-create-post/3-item-for-sale-modal--2.txt
+
+ # 3. Item for sale modal
+ agent-browser --cdp 9222 type e20 "${post_title}"
  agent-browser --cdp 9222 click e22
- * agent-browser --cdp 9222 snapshot > snapshots/fb-groups-create-post/3-item-for-sale-modal--2.txt
- * vim snapshots/fb-groups-create-post/3-item-for-sale-modal--2.txt
- agent-browser --cdp 9222 select e26 e27
- agent-browser --cdp 9222 select e22 e27
- agent-browser --cdp 9222 select e26 e27
+ agent-browser --cdp 9222 click e26
  agent-browser --cdp 9222 click e27
- * agent-browser --cdp 9222 snapshot > snapshots/fb-groups-create-post/3-item-for-sale-modal--2.txt
- * vim snapshots/fb-groups-create-post/3-item-for-sale-modal--2.txt
- agent-browser --cdp 9222 type e24 "item description"
+ agent-browser --cdp 9222 click e23
+ agent-browser --cdp 9222 type e24 "${post_description}"
  agent-browser --cdp 9222 type e26 "Maribor"
  agent-browser --cdp 9222 type e26 "Maribor" --clear
  agent-browser --cdp 9222 clear e26
- agent-browser --cdp 9222 fill e26 "Maribor"
- agent-browser --cdp 9222 fill e26 "Ljubljana, Slovenia"
- agent-browser --cdp 9222 click e16
- * agent-browser --cdp 9222 snapshot > snapshots/fb-groups-create-post/3-item-for-sale-modal--3.txt
- * vim snapshots/fb-groups-create-post/3-item-for-sale-modal--3.txt
- * opencode
- agent-browser upload 'input[type="file"][accept="image/*,image/heif,image/heic"]'
- realpath ../assets/marketing_post_image.png | pbcopy
- agent-browser upload 'input[type="file"][accept="image/*,image/heif,image/heic"]' /home/bostjan/source/autocare-ai-agent/assets/marketing_post_image.png\n
+ agent-browser --cdp 9222 fill e26 "${city}"
+ agent-browser --cdp 9222 click e37
+ agent-browser upload 'input[type="file"][accept="image/*,image/heif,image/heic"]' ${marketing_image_abs_path}
  agent-browser --cdp 9222 click e34
- * agent-browser --cdp 9222 snapshot > snapshots/fb-groups-create-post/4-share-to-more-places.txt
- * vim snapshots/fb-groups-create-post/4-share-to-more-places.txt
+ 
+ # 4. share to more places dialog
  agent-browser --cdp 9222 click e25
- * agent-browser --cdp 9222 snapshot > snapshots/fb-groups-create-post/5-listing-published.txt
- * vim snapshots/fb-groups-create-post/4-share-to-more-places.txt
- * vim snapshots/fb-groups-create-post/5-listing-published.txt
- agent-browser --cdp 9222 get text e13
+
+ # 5. listing published dialog
+ agent-browser --cdp 9222 get text e13 # Should print "Listing published"
  agent-browser --cdp 9222 click e14
+ ```
