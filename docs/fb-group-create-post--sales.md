@@ -1,9 +1,9 @@
 # Instructions on using `agent-browser` to perform common workflows
 
 ## Setup browser session
-1. run "uv run export-auth.py" to get facebook cookies
-2. run "uv run start-chrome-with-user-profile.py" to start a chrome browser with CDP debug port, and set cookies
-3. run "agent-browser connect 9222". Should print "done". Browser with user's cookies is ready for workflow executions.
+1. run `./scripts/start-facebook-browser.sh 9222 ./.chrome-profile`
+2. log into Facebook inside that sandboxed browser profile if the session is not already present
+3. run `agent-browser connect 9222`. Should print `done`.
 
 ## Best practices
 *TODO*:review this 
@@ -18,31 +18,13 @@ certain facebook groups allow make sales posts only. This requires special handl
 
 #### Step by step instructions
 ```bash
- # 1. First page
- agent-browser click e53
- 
- # 2. Create new listing modal
- agent-browser click e15
+./scripts/create-sale-post.sh "${post_title}" "${post_description}" "${city}" "${marketing_image_abs_path}" "${fb_group_url}" 9222
+```
 
- # 3. Item for sale modal
- agent-browser --cdp 9222 type e20 "${post_title}"
- agent-browser --cdp 9222 click e22
- agent-browser --cdp 9222 click e26
- agent-browser --cdp 9222 click e27
- agent-browser --cdp 9222 click e23
- agent-browser --cdp 9222 type e24 "${post_description}"
- agent-browser --cdp 9222 type e26 "Maribor"
- agent-browser --cdp 9222 type e26 "Maribor" --clear
- agent-browser --cdp 9222 clear e26
- agent-browser --cdp 9222 fill e26 "${city}"
- agent-browser --cdp 9222 click e37
- agent-browser upload 'input[type="file"][accept="image/*,image/heif,image/heic"]' ${marketing_image_abs_path}
- agent-browser --cdp 9222 click e34
- 
- # 4. share to more places dialog
- agent-browser --cdp 9222 click e25
+### unified group posting entrypoint
 
- # 5. listing published dialog
- agent-browser --cdp 9222 get text e13 # Should print "Listing published"
- agent-browser --cdp 9222 click e14
- ```
+```bash
+./scripts/post-to-facebook-group.sh "${post_title}" "${post_description}" "${city}" "${marketing_image_abs_path}" "${fb_group_url}" 9222
+```
+
+This entrypoint checks whether the group exposes `Sell something` and routes accordingly.
