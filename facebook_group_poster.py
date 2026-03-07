@@ -250,7 +250,8 @@ class FacebookGroupPoster:
         self.click_ref("Post", r'button "Post"')
         self.wait(10)
         self.get_text_ref("Write post button", r'button "Write something\.\.\."')
-        self.print_status("Post created successfully")
+
+        self.print_status(f"Post created successfully at {self.browser.get_url()}")
 
     def post_to_group(self, human_typing: bool = False) -> None:
         mode = self.detect_mode()
