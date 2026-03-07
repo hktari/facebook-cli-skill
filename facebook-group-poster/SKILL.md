@@ -1,5 +1,5 @@
 ---
-name: facebook-group-posting
+name: facebook-group-poster
 description: Automate Facebook group posting through the maintained Python CLI. Use this skill when you need to make a post in a Facebook group.
 ---
 
@@ -56,13 +56,17 @@ The Python CLI auto-detects these executable names when starting the browser.
 
 ## Interface
 
+- `./scripts/facebook_group_poster.py` is the main entrypoint.
+
 ### Primary entrypoint
+
+<!-- TODO: add examples -->
 
 ```bash
 python3 facebook_group_poster.py post-to-facebook-group <post_title> <post_description> <city> <image_path> <group_url> [cdp_port]
 ```
 
-Use this for the normal user-facing task: make a Facebook group post. The script will detect whether the group exposes the `Sell something` flow and route to the correct implementation.
+Use this for the normal user-facing task: make a Facebook group post.
 
 ### Setup browser session
 
@@ -88,6 +92,5 @@ Use this to start or reuse the browser profile directly. Prefer visible mode for
 
 ## Notes
 
-- `facebook_group_poster.py` is the authoritative implementation.
 - Initial Facebook login is manual and should happen in a visible browser window.
 - Routine posting should reuse the persisted profile and can run in headless mode.
