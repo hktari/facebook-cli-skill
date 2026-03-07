@@ -11,9 +11,9 @@ description: Automate Facebook group posting through the maintained Python CLI. 
 - `agent-browser` must be installed and available on `PATH`
 - Chrome or Chromium must be installed and runnable on the machine
 - the browser session must be started with CDP before posting
-- the sandboxed browser profile must already contain a valid Facebook login session
+- the sandboxed browser profile must be reused so the Facebook login session can persist
 
-## Install Chrome or Chromium
+## Install Chrome or Chromium including Playwright
 
 If Chrome or Chromium is not already installed, install one of them before using this skill.
 
@@ -29,16 +29,6 @@ The Python CLI auto-detects these executable names when starting the browser.
 - check if agent-browser is already installed: `agent-browser --version`
 - if not installed, see instructions at: https://github.com/vercel-labs/agent-browser on how to install
 
-<!-- 1. run `python3 facebook_group_poster.py start-browser 9222 ./.chrome-profile`
-2. log into Facebook inside that sandboxed browser profile if the session is not already present
-3. run `agent-browser connect 9222`. Should print `done`.
-
-`facebook_group_poster.py` contains the maintained workflow logic. -->
-
-## Best practices
-*TODO*:review this 
-1. make sure to cleanup and kill chrome process
-
 ## How to use
 
 1. check dependencies are installed:
@@ -47,8 +37,22 @@ The Python CLI auto-detects these executable names when starting the browser.
    
    if any is missing you must first install them
 
-2. check if a chrome browser instance with CDP is running: 
-   run `agent-browser connect 9222`. Should print `done`. If not, start chrome browser and prompt the user to log into Facebook account. 
+2. prepare the Facebook session in a visible browser:
+   run `python3 facebook_group_poster.py prepare-facebook-session 9222 ./.chrome-profile`
+
+3. if the command reports that login is still needed, complete the Facebook login manually in that browser window and rerun:
+   `python3 facebook_group_poster.py check-facebook-logged-in 9222`
+
+4. for routine automation after setup, you may reuse the same profile in headless mode:
+   `python3 facebook_group_poster.py start-browser 9222 ./.chrome-profile --headless`
+
+
+## Best practices
+1. make sure to kill running chrome process after all posts have been made
+    - find the Chrome or Chromium process: `ps -ef | grep -E 'chrome|chromium' | grep -- '--remote-debugging-port=9222'`
+    - stop it cleanly first: `pkill -f -- '--remote-debugging-port=9222'`
+    - if it does not stop, force kill it: `pkill -9 -f -- '--remote-debugging-port=9222'`
+
 
 ## Interface
 
@@ -63,28 +67,27 @@ Use this for the normal user-facing task: make a Facebook group post. The script
 ### Setup browser session
 
 ```bash
-python3 facebook_group_poster.py start-browser [cdp_port] [profile_dir]
+python3 facebook_group_poster.py prepare-facebook-session [cdp_port] [profile_dir]
 ```
 
-Use this when you need to bootstrap or reuse the sandboxed Chrome profile.
+Use this when you need to bootstrap the sandboxed Chrome profile and complete the one-time manual Facebook login.
 
-### Optional debugging commands
+### Supporting commands
 
 ```bash
-python3 facebook_group_poster.py detect-mode <group_url> [cdp_port]
+python3 facebook_group_poster.py check-facebook-logged-in [cdp_port]
 ```
 
-Use this only when you need to inspect whether the group resolves to the sell-item flow or the regular-post flow.
+Use this to verify that the persisted Facebook session is still valid.
 
 ```bash
-python3 facebook_group_poster.py create-sale-post-human-typing-poc <post_title> <post_description> <city> <image_path> <group_url> [cdp_port] [char_delay_ms]
+python3 facebook_group_poster.py start-browser [cdp_port] [profile_dir] [--headless]
 ```
 
-Use this only when Facebook behaves differently with character-by-character input and you need to compare it against the default sale-post flow.
+Use this to start or reuse the browser profile directly. Prefer visible mode for first-time setup and `--headless` for routine automated runs after login is already saved.
 
 ## Notes
 
 - `facebook_group_poster.py` is the authoritative implementation.
-- Both the sell-item flow and the regular-post flow are implemented.
-- `uv` is not required for runtime because the current Python CLI has no external Python dependencies.
-- This skill is Unix-oriented and does not target Windows support.
+- Initial Facebook login is manual and should happen in a visible browser window.
+- Routine posting should reuse the persisted profile and can run in headless mode.
