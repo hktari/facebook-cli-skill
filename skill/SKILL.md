@@ -1,44 +1,90 @@
 ---
 name: facebook-group-posting
-description: Automate posting to Facebook groups using a CDP-enabled Chrome browser with a logged-in Facebook session. Use this skill to start the browser session and create a group post through a single shell-based interface that detects whether the group supports a sell-item flow.
+description: Automate Facebook group posting through the maintained Python CLI. Use this skill when you need to make a post in a Facebook group.
 ---
 
 # Facebook Group Posting Skill
 
-## When to use
-
-Use this skill when you need to:
-- start a Chrome or Chromium browser with CDP enabled for Facebook automation
-- reuse a sandboxed Facebook-authenticated session
-- create a Facebook group post through one unified interface
-
 ## Requirements
 
+- Python 3.12+
 - `agent-browser` must be installed and available on `PATH`
-- Chrome or Chromium must be installed
+- Chrome or Chromium must be installed and runnable on the machine
 - the browser session must be started with CDP before posting
 - the sandboxed browser profile must already contain a valid Facebook login session
 
+## Install Chrome or Chromium
+
+If Chrome or Chromium is not already installed, install one of them before using this skill.
+
+Common Linux package names:
+
+- `google-chrome`
+- `chromium`
+- `chromium-browser`
+
+The Python CLI auto-detects these executable names when starting the browser.
+
+## Install agent-browser
+- check if agent-browser is already installed: `agent-browser --version`
+- if not installed, see instructions at: https://github.com/vercel-labs/agent-browser on how to install
+
+<!-- 1. run `python3 facebook_group_poster.py start-browser 9222 ./.chrome-profile`
+2. log into Facebook inside that sandboxed browser profile if the session is not already present
+3. run `agent-browser connect 9222`. Should print `done`.
+
+`facebook_group_poster.py` contains the maintained workflow logic. -->
+
+## Best practices
+*TODO*:review this 
+1. make sure to cleanup and kill chrome process
+
+## How to use
+
+1. check dependencies are installed:
+   1.1 check if agent-browser is installed: `agent-browser --version`
+   1.2 check if chrome or chromium is installed: `google-chrome --version` or `chromium --version`
+   
+   if any is missing you must first install them
+
+2. check if a chrome browser instance with CDP is running: 
+   run `agent-browser connect 9222`. Should print `done`. If not, start chrome browser and prompt the user to log into Facebook account. 
+
 ## Interface
 
-### 1. Start browser session
+### Primary entrypoint
 
 ```bash
-./scripts/start-facebook-browser.sh [cdp_port] [profile_dir]
+python3 facebook_group_poster.py post-to-facebook-group <post_title> <post_description> <city> <image_path> <group_url> [cdp_port]
 ```
 
-Starts a sandboxed Chrome or Chromium instance with CDP enabled.
+Use this for the normal user-facing task: make a Facebook group post. The script will detect whether the group exposes the `Sell something` flow and route to the correct implementation.
 
-### 2. Make a Facebook group post
+### Setup browser session
 
 ```bash
-./scripts/post-to-facebook-group.sh <post_title> <post_description> <city> <image_path> <group_url> [cdp_port]
+python3 facebook_group_poster.py start-browser [cdp_port] [profile_dir]
 ```
 
-The script detects whether the group supports the sell-item flow by checking for the `Sell something` button. If present, it routes to the sales-post workflow. Otherwise it routes to the regular-post workflow.
+Use this when you need to bootstrap or reuse the sandboxed Chrome profile.
+
+### Optional debugging commands
+
+```bash
+python3 facebook_group_poster.py detect-mode <group_url> [cdp_port]
+```
+
+Use this only when you need to inspect whether the group resolves to the sell-item flow or the regular-post flow.
+
+```bash
+python3 facebook_group_poster.py create-sale-post-human-typing-poc <post_title> <post_description> <city> <image_path> <group_url> [cdp_port] [char_delay_ms]
+```
+
+Use this only when Facebook behaves differently with character-by-character input and you need to compare it against the default sale-post flow.
 
 ## Notes
 
-- The current regular-post workflow is intentionally left as a scaffold for collaborative completion.
-- The sell-item flow is implemented from the existing proof-of-concept shell script.
+- `facebook_group_poster.py` is the authoritative implementation.
+- Both the sell-item flow and the regular-post flow are implemented.
+- `uv` is not required for runtime because the current Python CLI has no external Python dependencies.
 - This skill is Unix-oriented and does not target Windows support.
