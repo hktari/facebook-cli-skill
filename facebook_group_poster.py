@@ -126,7 +126,7 @@ class FacebookGroupPoster:
     def ensure_session_ready(self) -> bool:
         if not is_cdp_available(self.request.cdp_port):
             print(
-                "Browser with CDP is not running. Run `python3 facebook_group_poster.py prepare-facebook-session` first."
+                "Browser with CDP is not running. Run `python3 facebook_group_poster.py prepare-session` first."
             )
             return False
 
@@ -136,7 +136,7 @@ class FacebookGroupPoster:
             return True
 
         print(
-            "Facebook login is required before posting. Complete login in the opened browser window, then rerun this command. If you are running headless, run `python3 facebook_group_poster.py prepare-facebook-session` first."
+            "Facebook login is required before posting. Complete login in the opened browser window, then rerun this command. If you are running headless, run `python3 facebook_group_poster.py prepare-session` first."
         )
         return False
 
@@ -234,8 +234,9 @@ class FacebookGroupPoster:
         self.wait(5)
         post_content = f"{self.request.post_title}\n{self.request.post_description}"
         self.print_status("Entering post text")
-        self.type_ref("Post input field", r"textbox", post_content)
+        self.human_type_ref("Post input field", r"textbox", post_content)
         self.click_ref("Add to your post", r'button "Add to your post"')
+
         self.wait(3)
         self.print_status("Uploading image")
         self.browser.upload(
@@ -243,6 +244,8 @@ class FacebookGroupPoster:
             self.request.marketing_image_abs_path,
         )
         self.wait(10)
+        self.click_ref("Back", r'button "Back"')
+        self.wait(1)
         self.print_status("Publishing post")
         self.click_ref("Post", r'button "Post"')
         self.wait(10)
@@ -291,7 +294,7 @@ def prepare_facebook_session(cdp_port: int, profile_dir: str) -> bool:
         return True
 
     print(
-        "Facebook session is not logged in. Complete login manually in the opened browser window, then rerun `python3 facebook_group_poster.py check-facebook-logged-in` or `python3 facebook_group_poster.py prepare-facebook-session`."
+        "Facebook session is not logged in. Complete login manually in the opened browser window, then rerun `python3 facebook_group_poster.py check-logged-in` or `python3 facebook_group_poster.py prepare-session`."
     )
     return False
 
@@ -385,16 +388,16 @@ def build_parser() -> argparse.ArgumentParser:
     )
     start_browser_parser.add_argument("--headless", action="store_true")
 
-    prepare_session_parser = subparsers.add_parser("prepare-facebook-session")
+    prepare_session_parser = subparsers.add_parser("prepare-session")
     prepare_session_parser.add_argument("cdp_port", nargs="?", type=int, default=9222)
     prepare_session_parser.add_argument(
         "profile_dir", nargs="?", default=str(Path.cwd() / ".chrome-profile")
     )
 
-    post_parser = subparsers.add_parser("post-to-facebook-group")
+    post_parser = subparsers.add_parser("create-post")
     add_post_arguments(post_parser)
 
-    check_logged_in_parser = subparsers.add_parser("check-facebook-logged-in")
+    check_logged_in_parser = subparsers.add_parser("check-logged-in")
     check_logged_in_parser.add_argument("cdp_port", nargs="?", type=int, default=9222)
 
     return parser
@@ -409,15 +412,15 @@ def main(argv: Sequence[str] | None = None) -> int:
             start_browser(args.cdp_port, args.profile_dir, headless=args.headless)
             return 0
 
-        if args.command == "prepare-facebook-session":
+        if args.command == "prepare-session":
             if prepare_facebook_session(args.cdp_port, args.profile_dir):
                 return 0
             return 1
 
-        if args.command == "check-facebook-logged-in":
+        if args.command == "check-logged-in":
             if not is_cdp_available(args.cdp_port):
                 print(
-                    "Browser with CDP is not running. Run `python3 facebook_group_poster.py prepare-facebook-session` first."
+                    "Browser with CDP is not running. Run `python3 facebook_group_poster.py prepare-session` first."
                 )
                 return 1
 
@@ -430,7 +433,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             return 1
 
-        if args.command == "post-to-facebook-group":
+        if args.command == "create-post":
             poster = FacebookGroupPoster(build_request(args))
             if not poster.ensure_session_ready():
                 return 1
