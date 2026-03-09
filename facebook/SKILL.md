@@ -13,6 +13,7 @@ description: Perform actions inside user's Facebook. Interact with user's Facebo
 - the browser session must be started with CDP before posting
 - the sandboxed browser profile must be reused so the Facebook login session can persist
 
+
 ## Install Chrome or Chromium including Playwright
 
 If Chrome or Chromium is not already installed, install one of them before using this skill.
@@ -23,11 +24,12 @@ Common Linux package names:
 - `chromium`
 - `chromium-browser`
 
-The Python CLI auto-detects these executable names when starting the browser.
+**TODO**: Playwright installation steps missing
 
-## Install agent-browser
+###Install agent-browser
 - check if agent-browser is already installed: `agent-browser --version`
 - if not installed, see instructions at: https://github.com/vercel-labs/agent-browser on how to install
+
 
 ## How to use
 
@@ -37,21 +39,19 @@ The Python CLI auto-detects these executable names when starting the browser.
    
    if any is missing you must first install them
 
-2. prepare the Facebook session in a visible browser:
-   run `python3 facebook.py prepare-session 9222 ./.chrome-profile`
+2. run `python3 facebook.py start-browser 9222 ./.chrome-profile`
+
+2. run `python3 facebook.py prepare-session 9222 ./.chrome-profile`
 
 3. if the command reports that login is still needed, complete the Facebook login manually in that browser window and rerun:
    `python3 facebook.py check-logged-in 9222`
 
-4. for routine automation after setup, you may reuse the same profile in headless mode:
+5. once you've got a logged in facebook session, perform your actions inside facebook.
+
+6. when you're finished interacting with facebook, tear down the browser session
+
+**PRO TIP**: after the initial session you may reuse the same profile in headless mode.
    `python3 facebook.py start-browser 9222 ./.chrome-profile --headless`
-
-
-## Best practices
-1. make sure to kill running chrome process after all posts have been made
-    - find the Chrome or Chromium process: `ps -ef | grep -E 'chrome|chromium' | grep -- '--remote-debugging-port=9222'`
-    - stop it cleanly first: `pkill -f -- '--remote-debugging-port=9222'`
-    - if it does not stop, force kill it: `pkill -9 -f -- '--remote-debugging-port=9222'`
 
 
 ## Interface
@@ -90,7 +90,12 @@ python3 facebook.py start-browser [cdp_port] [profile_dir] [--headless]
 
 Use this to start or reuse the browser profile directly. Prefer visible mode for first-time setup and `--headless` for routine automated runs after login is already saved.
 
-## Notes
+### Tear down browser session
+1. find the Chrome or Chromium process: `ps -ef | grep -E 'chrome|chromium' | grep -- '--remote-debugging-port=9222'`
+2. stop it cleanly first: `pkill -f -- '--remote-debugging-port=9222'`
+3. if it does not stop, force kill it: `pkill -9 -f -- '--remote-debugging-port=9222'`
 
+
+## Important Notes
 - Initial Facebook login is manual and should happen in a visible browser window.
 - Routine posting should reuse the persisted profile and can run in headless mode.

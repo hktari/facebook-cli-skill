@@ -126,7 +126,7 @@ class FacebookGroupPoster:
     def ensure_session_ready(self) -> bool:
         if not is_cdp_available(self.request.cdp_port):
             print(
-                "Browser with CDP is not running. Run `python3 facebook_group_poster.py prepare-session` first."
+                "Browser with CDP is not running. Run `python3 facebook.py prepare-session` first."
             )
             return False
 
@@ -136,7 +136,7 @@ class FacebookGroupPoster:
             return True
 
         print(
-            "Facebook login is required before posting. Complete login in the opened browser window, then rerun this command. If you are running headless, run `python3 facebook_group_poster.py prepare-session` first."
+            "Facebook login is required before posting. Complete login in the opened browser window, then rerun this command. If you are running headless, run `python3 facebook.py prepare-session` first."
         )
         return False
 
@@ -295,7 +295,7 @@ def prepare_facebook_session(cdp_port: int, profile_dir: str) -> bool:
         return True
 
     print(
-        "Facebook session is not logged in. Complete login manually in the opened browser window, then rerun `python3 facebook_group_poster.py check-logged-in` or `python3 facebook_group_poster.py prepare-session`."
+        "Facebook session is not logged in. Complete login manually in the opened browser window, then rerun `python3 facebook.py check-logged-in` or `python3 facebook.py prepare-session`."
     )
     return False
 
@@ -421,7 +421,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "check-logged-in":
             if not is_cdp_available(args.cdp_port):
                 print(
-                    "Browser with CDP is not running. Run `python3 facebook_group_poster.py prepare-session` first."
+                    "Browser with CDP is not running. Run `python3 facebook.py prepare-session` first."
                 )
                 return 1
 
