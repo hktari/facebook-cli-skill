@@ -1,9 +1,9 @@
 ---
-name: facebook-group-poster
-description: Automate Facebook group posting through the maintained Python CLI. Use this skill when you need to make a post in a Facebook group.
+name: facebook
+description: Perform actions inside user's Facebook. Interact with user's Facebook via CLI. Includes scripts for common workflows such as making a post to a facebook group. Exposed via Python CLI.
 ---
 
-# Facebook Group Posting Skill
+# Interact with user's Facebook via CLI
 
 ## Requirements
 
@@ -38,13 +38,13 @@ The Python CLI auto-detects these executable names when starting the browser.
    if any is missing you must first install them
 
 2. prepare the Facebook session in a visible browser:
-   run `python3 facebook_group_poster.py prepare-facebook-session 9222 ./.chrome-profile`
+   run `python3 facebook.py prepare-session 9222 ./.chrome-profile`
 
 3. if the command reports that login is still needed, complete the Facebook login manually in that browser window and rerun:
-   `python3 facebook_group_poster.py check-facebook-logged-in 9222`
+   `python3 facebook.py check-logged-in 9222`
 
 4. for routine automation after setup, you may reuse the same profile in headless mode:
-   `python3 facebook_group_poster.py start-browser 9222 ./.chrome-profile --headless`
+   `python3 facebook.py start-browser 9222 ./.chrome-profile --headless`
 
 
 ## Best practices
@@ -56,14 +56,14 @@ The Python CLI auto-detects these executable names when starting the browser.
 
 ## Interface
 
-- `./scripts/facebook_group_poster.py` is the main entrypoint.
+- `./scripts/facebook.py` is the main entrypoint.
 
 ### Primary entrypoint
 
 <!-- TODO: add examples -->
 
 ```bash
-python3 facebook_group_poster.py post-to-facebook-group <post_title> <post_description> <city> <image_path> <group_url> [cdp_port]
+python3 facebook.py post-to-group <post_title> <post_description> <city> <image_path> <group_url> [cdp_port]
 ```
 
 Use this for the normal user-facing task: make a Facebook group post.
@@ -71,7 +71,7 @@ Use this for the normal user-facing task: make a Facebook group post.
 ### Setup browser session
 
 ```bash
-python3 facebook_group_poster.py prepare-facebook-session [cdp_port] [profile_dir]
+python3 facebook.py prepare-session [cdp_port] [profile_dir]
 ```
 
 Use this when you need to bootstrap the sandboxed Chrome profile and complete the one-time manual Facebook login.
@@ -79,13 +79,13 @@ Use this when you need to bootstrap the sandboxed Chrome profile and complete th
 ### Supporting commands
 
 ```bash
-python3 facebook_group_poster.py check-facebook-logged-in [cdp_port]
+python3 facebook.py check-logged-in [cdp_port]
 ```
 
 Use this to verify that the persisted Facebook session is still valid.
 
 ```bash
-python3 facebook_group_poster.py start-browser [cdp_port] [profile_dir] [--headless]
+python3 facebook.py start-browser [cdp_port] [profile_dir] [--headless]
 ```
 
 Use this to start or reuse the browser profile directly. Prefer visible mode for first-time setup and `--headless` for routine automated runs after login is already saved.

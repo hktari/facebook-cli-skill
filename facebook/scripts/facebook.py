@@ -79,7 +79,7 @@ class AgentBrowserClient:
 
 
 class FacebookGroupPoster:
-    def __init__(self, request: PostRequest, char_delay_ms: int = 30) -> None:
+    def __init__(self, request: PostRequest, char_delay_ms: int = 15) -> None:
         self.request = request
         self.char_delay_ms = char_delay_ms
         self.browser = AgentBrowserClient(request.cdp_port)
@@ -395,7 +395,7 @@ def build_parser() -> argparse.ArgumentParser:
         "profile_dir", nargs="?", default=str(Path.cwd() / ".chrome-profile")
     )
 
-    post_parser = subparsers.add_parser("create-post")
+    post_parser = subparsers.add_parser("post-to-group")
     add_post_arguments(post_parser)
 
     check_logged_in_parser = subparsers.add_parser("check-logged-in")
@@ -434,7 +434,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             return 1
 
-        if args.command == "create-post":
+        if args.command == "post-to-group":
             poster = FacebookGroupPoster(build_request(args))
             if not poster.ensure_session_ready():
                 return 1
