@@ -345,6 +345,10 @@ def start_browser(cdp_port: int, profile_dir: str, headless: bool = False) -> No
     ]
     if headless:
         chrome_args.insert(-1, "--headless=new")
+        # Headless defaults to an 800x600 window. The feed then holds ~4 posts
+        # and a 750px scroll leaves the next post half off-screen, without its
+        # "Leave a comment" button in the snapshot, so the scraper skips it.
+        chrome_args.insert(-1, "--window-size=1280,2400")
 
     subprocess.Popen(
         chrome_args,
